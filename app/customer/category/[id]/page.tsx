@@ -1,7 +1,8 @@
 'use client';
+
 import { useEffect, useState } from 'react';
-import { Button } from '../components/UI/Button';
-import { Box, MessageCircle, Phone, SquareUser, UserRound } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import { Button } from '../../components/UI/Button';
 
 type Item = {
   id: number;
@@ -23,36 +24,41 @@ type User = {
   whatsApp: string;
 };
 
-export default function CustomerDashboard() {
+export default function CategoryItemsPage() {
   function handleClick(whatsApp: string) {
     window.open(`https://wa.me/${whatsApp}`, '_blank');
   }
 
+  const [loadingItems, setLoadingItems] = useState(true);
+  const params = useParams();
+
+  const categoryId = params.id;
+
   const [items, setItems] = useState<Item[]>([]);
   console.log(items);
 
-  const [loadingItems, setLoadingItems] = useState(true);
-
   const itemWithUser = items.map((item) => ({
     itemName: item.name,
-    userName: item.user.name,
-    whatsApp: item.user.whatsApp,
+    userName: item.user?.name,
+    whatsApp: item.user?.whatsApp,
   }));
 
   // Fetch Items
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch('http://localhost:3000/item', {
-          credentials: 'include',
-        });
+        const response = await fetch(
+          `http://localhost:3000/item/category/${categoryId}`,
+          {
+            credentials: 'include',
+          },
+        );
 
         if (!response.ok) {
           throw new Error('Failed to fetch items');
         }
 
         const data = await response.json();
-
         setItems(data);
       } catch (error) {
         console.error('Failed to fetch items:', error);
@@ -72,7 +78,7 @@ export default function CustomerDashboard() {
             Our Marketplace Items
           </h1>
 
-          <p className="text-gray-500 mt-1">All you want is here </p>
+          <p className="text-gray-500 mt-1">Choose your favorite food</p>
         </div>
 
         {loadingItems ? (
@@ -80,7 +86,7 @@ export default function CustomerDashboard() {
         ) : items.length === 0 ? (
           <p className="text-gray-500">No items available.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 items-stretch">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {items
               // .filter((item) => item.isActive)
               .map((item) => (
@@ -98,7 +104,7 @@ export default function CustomerDashboard() {
 
                   {/* Item Details */}
 
-                  <div className="px-3 py-5 h-full ">
+                  <div className="p-5">
                     <h2 className="text-xl font-bold text-gray-800">
                       {item.name}
                     </h2>
@@ -109,32 +115,15 @@ export default function CustomerDashboard() {
                   </div>
 
                   <div className="flex justify-between">
-                    <p className="text-xl font-bold text-blue-700 ">
-                      Rs.{item.price}
-                    </p>
-                    <p className="text-md text-blue-600 font-bold ">
-                      Discount: {item.discount}{' '}
-                    </p>
+                    <p className="text-lg font-bold ">{item.price}</p>
+                    <p className="text-md ">Discount: {item.discount} </p>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <div className="flex gap-2">
-                      <UserRound />
-                      <p>Owner:</p>
-                      <p className="font-bold ">{item.user.name}</p>
-                    </div>
-
-                    <div className="flex gap-3 ">
-                      <Box />
-                      <p>Available Quantity:</p>
-                      <p className="font-bold"> {item.quantity}</p>
-                    </div>
+                    <p>Owner:{item?.user?.name}</p>
+                    <p>Available Quantity: {item.quantity}</p>
                     <Button
                       title="Contact Seller"
-                      className="font-bold mt-3"
-                      onClick={() => handleClick(item.user.whatsApp)}
-                      icon={
-                        <Phone size={20} fill="white" className="text-white" />
-                      }
+                      onClick={() => handleClick(item?.user?.whatsApp)}
                     />
                   </div>
                 </div>

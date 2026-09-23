@@ -11,10 +11,10 @@ const Button: React.FC<ButtonProps> = ({ title, onClick, className, icon }) => {
   return (
     <button
       onClick={onClick}
-      className={`cursor-pointer bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition-colors ${className} flex gap-2 items-center justify-center`}
+      className={`cursor-pointer bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition-colors ${className}`}
     >
-      {icon}
       {title}
+      {icon}
     </button>
   );
 };

@@ -1,5 +1,5 @@
 import ProfilePage from '@/app/profile/page';
 
-export default function CustomerProfile() {
+export default function AdminProfile() {
   return <ProfilePage />;
 }
