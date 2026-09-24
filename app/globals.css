@@ -10,6 +10,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Abishek
+   */
+
+  --color-text-ash: #7d818e;
+
+  /* category cards */
+  --color-category-card-purple: #293279;
+
+  --color-bg-footer: #0f172a;
 }
 
 @media (prefers-color-scheme: dark) {

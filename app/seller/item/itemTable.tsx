@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { Button } from '@/app/customer/components/UI/Button';
 import { useEffect, useState } from 'react';
 import { Dialog } from '@/app/customer/components/UI/dialog';
 import { Pencil, Trash } from 'lucide-react';
@@ -64,75 +63,98 @@ export function ItemTable() {
 
   return (
     <>
-      <table className="w-full border-3 border-black">
-        <thead>
-          <tr>
-            <th className=" border-black p-2 border-3">ID</th>
-            <th className=" border-black p-2 border-3">Name</th>
-            <th className=" border-black p-2 border-3">Description</th>
-            <th className=" border-black p-2 border-3">Price</th>
-            <th className=" border-black p-2 border-3">Discount</th>
-            <th className=" border-black p-2 border-3">Quantity</th>
-            <th className=" border-black p-2 border-3">Availability</th>
+      <div className="w-full overflow-x-auto rounded-xl border border-gray-300 bg-white shadow-sm">
+        <table className="w-full min-w-[700px] text-left">
+          <thead className="bg-pink-300 border-b">
+            <tr>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                ID
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Name
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Description
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Price
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Discount
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Quantity
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Availability
+              </th>
 
-            <th className=" border-black p-2 border-3">Category</th>
-            <th className=" border-black p-2 border-3">Image</th>
-            <th className=" border-black p-2 border-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {item.map((i) => (
-            <tr key={i.id}>
-              <td className="border-3 border-black p-2">{i.id}</td>
-              <td className="border-3 border-black p-2">{i.name}</td>
-              <td className="border-3 border-black p-2">{i.description}</td>
-              <td className="border-3 border-black p-2">{i.price}</td>
-              <td className="border-3 border-black p-2">{i.discount}</td>
-              <td className="border-3 border-black p-2">{i.quantity}</td>
-
-              <td className="border-3 border-black p-2">
-                {i.isActive ? 'Yes' : 'No'}
-              </td>
-
-              <td className="border-3 border-black p-2">{i.categoryId}</td>
-
-              <td className="border-3 border-black p-2">
-                <Image
-                  src={i.imageUrl}
-                  alt={i.name}
-                  className="w-20 h-20 object-cover rounded-md"
-                />
-              </td>
-
-              <td className="border-3 border-black p-2">
-                <div className="flex gap-2">
-                  <Link href={`/admin/item/edit/${i.id}`}>
-                    <ButtonOther
-                      title="Edit"
-                      icon={<Pencil size={20} />}
-                      className="bg-blue-500 text-white"
-                    />
-                  </Link>
-                  <ButtonOther
-                    title="Delete"
-                    icon={<Trash size={20} />}
-                    className="bg-red-500 text-white"
-                    onClick={() => handleDeleteClick(i.id)}
-                  />
-                </div>
-              </td>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Category
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Image
+              </th>
+              <th className=" px-6 py-4 text-sm font-semibold text-gray-600">
+                Actions
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div>
-        <Dialog
-          title="Delete Item"
-          description="Are you sure want to delete this Item ?"
-          onConfirm={handleDelete}
-          showDialog={showDialog}
-          setShowDialog={setShowDialog}
-        />
+          </thead>
+          <tbody className="divide-y divide-gray-300">
+            {item.map((i) => (
+              <tr
+                key={i.id}
+                className="hover:bg-gray-50 transition font-semibold"
+              >
+                <td className="px-6 py-4 text-text-ash">{i.id}</td>
+                <td className="px-6 py-4 text-text-ash">{i.name}</td>
+                <td className="px-6 py-4">{i.description}</td>
+                <td className="px-6 py-4">{i.price}</td>
+                <td className="px-6 py-4">{i.discount}</td>
+                <td className="px-6 py-4">{i.quantity}</td>
+
+                <td className="px-6 py-4">{i.isActive ? 'Yes' : 'No'}</td>
+
+                <td className="px-6 py-4">{i.categoryId}</td>
+
+                <td className="px-6 py-4">
+                  <img
+                    src={i.imageUrl}
+                    alt={i.name}
+                    className="w-20 h-20 object-cover rounded-md"
+                  />
+                </td>
+
+                <td className="px-6 py-4">
+                  <div className="flex gap-2">
+                    <Link href={`/admin/item/edit/${i.id}`}>
+                      <ButtonOther
+                        title="Edit"
+                        icon={<Pencil size={20} />}
+                        className="bg-blue-500 text-white hover:text-edit"
+                      />
+                    </Link>
+                    <ButtonOther
+                      title="Delete"
+                      icon={<Trash size={20} />}
+                      className="bg-red-500 text-white"
+                      onClick={() => handleDeleteClick(i.id)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div>
+          <Dialog
+            title="Delete Item"
+            description="Are you sure want to delete this Item ?"
+            onConfirm={handleDelete}
+            showDialog={showDialog}
+            setShowDialog={setShowDialog}
+          />
+        </div>
       </div>
     </>
   );

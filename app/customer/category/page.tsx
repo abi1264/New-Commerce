@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Button } from '../components/UI/Button';
 import { useRouter } from 'next/navigation';
+import { ArrowRight } from 'lucide-react';
 
 type Category = {
   id: number;
@@ -32,51 +33,42 @@ export default function CustomerCategoryPage() {
   }
 
   return (
-    <div className="p-6">
-      {/* Page Heading */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Food Categories</h1>
-
-        <p className="text-gray-500 mt-2">
-          Choose a category to explore our menu
+    <section>
+      <div className="flex flex-col gap-2 mt-7 mb-8">
+        <span className="text-5xl text-black font-bold">
+          Browse Everything on
+          <span className="text-5xl text-blue-700 font-bold"> Mero Bazar </span>
+        </span>
+        <p className="line-clamp-2 text-text-ash text-md ">
+          Choose a verified category to explore certified sellers, trending
+          electornics, everyday groceries, fashion staples and home essentials
         </p>
       </div>
 
-      {/* Categories */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {categories.map((category) => (
           <div
             key={category.id}
-            className="bg-white rounded-xl shadow-md p-6 
-                       hover:shadow-xl hover:-translate-y-1 
-                       transition-all duration-300 cursor-pointer"
+            className="border  border-gray-300 rounded-lg p-6 flex flex-col gap-3 transition-transform duration-300 ease-in-out hover:scale-105"
           >
-            {/* Category Icon */}
-            <div
-              className="w-14 h-14 bg-blue-100 rounded-full 
-                            flex items-center justify-center mb-4"
-            >
-              <div className="">Image</div>
+            <div className="bg-pink-200 rounded-md h-30 flex flex-col  ">
+              Abishek
+            </div>
+            <div className="flex gap-3 flex-col h-30 ">
+              <p className="text-xl font-bold ">{category.name}</p>
+              <p className="text-md text-text-ash">{category.description}</p>
             </div>
 
-            {/* Category Name */}
-            <h2 className="text-xl font-bold text-gray-800">{category.name}</h2>
-
-            {/* Description */}
-            <p className="text-gray-500 mt-2 text-sm">{category.description}</p>
-
-            {/* Button */}
-            <Button
-              title="View Items"
-              className="mt-5 w-full bg-blue-500 text-white 
-                         py-2 rounded-lg hover:bg-blue-600 
-                         transition-colors"
-
-              onClick={(e) => handleViewItems(category.id)}
-            />
+            <button
+              className="flex gap-2 items-center justify-center font-bold bg-blue-600 rounded-md p-2 hover:cursor-pointer hover:bg-blue-800"
+              onClick={() => handleViewItems(category.id)}
+            >
+              <p className="text-white"> Explore {category.name}</p>
+              <ArrowRight size={20} className="text-white" />
+            </button>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

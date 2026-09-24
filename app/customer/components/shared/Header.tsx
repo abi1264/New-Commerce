@@ -6,12 +6,16 @@ import SearchBar from '../UI/Searchbar';
 
 export default function Header() {
   return (
-    <header className="h-20 bg-white shadow flex items-center justify-between px-6 sticky-top-0">
+    <header className="border bg-white shadow flex items-center justify-between p-6 sticky-top-0">
       <div className="flex gap-5">
         <div className="flex gap-3">
           <ShoppingBag size={30} className="text-blue-600 rounded-md " />
-          <h1 className="text-black font-bold text-3xl">
-            Mero<span className="text-3xl font-bold text-blue-600"> Bazar</span>
+          <h1 className="text-black font-bold sm:text-md md:text-xl lg:text-3xl">
+            Mero
+            <span className="sm:text-md md:text-xl lg:text-3xl font-bold text-blue-600">
+              {' '}
+              Bazar
+            </span>
           </h1>
         </div>
         <div className="flex gap-1 p-2 font-bold bg-blue-500 text-white rounded-lg hover:bg-blue-600 hover:text-white hover:scale-110 transition-transform duration-200 items-center">
@@ -20,38 +24,23 @@ export default function Header() {
             Categories
           </Link>
         </div>
-        <div>
+        <div className="">
           <SearchBar />
         </div>
       </div>
 
-      <nav className="flex gap-6">
-        <div className="flex flex-col  items-center">
-          <div className="flex gap-2  items-center hover:scale-110  transition-transform duration-400">
-            <p className="p-1 text-blue-600 text-shadow-blue-600 -lg hover:text-blue-700 hover:scale-110  transition-transform duration-400">
-              Want to place items for sell ?{' '}
-            </p>
-            <Heart size={30} fill="red" color="red" className="text-white" />
-          </div>
-          <Link
-            href="/auth/signup"
-            className="p-1  text-blue-500 text-shadow-blue-600 -lg hover:text-blue-800 hover:scale-110 hover:underline transition-transform duration-400"
-          >
-            - Click here to create a seller account
-          </Link>
-        </div>
-
+      <nav className="flex gap-5 border ">
         <Link
-          className="flex gap-1 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 hover:text-white hover:scale-110 transition-transform duration-200 items-center"
+          className=" flex gap-1 p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 hover:text-white hover:scale-110 transition-transform duration-200 items-center max-h-20"
           href="/customer/cart"
         >
-          Cart
+          <span className=""> Cart</span>
           <ShoppingCart />
         </Link>
 
         <Link
           href="/customer/profile"
-          className="p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 hover:text-white hover:scale-110 transition-transform duration-200"
+          className="flex bg-blue-500 p-2 text-white rounded-lg hover:bg-blue-600 hover:text-white hover:scale-110 transition-transform duration-200 items-center max-h-12"
         >
           Profile
         </Link>

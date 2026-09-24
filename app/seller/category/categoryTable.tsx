@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Button } from '@/app/customer/components/UI/Button';
 import { useEffect, useState } from 'react';
 import { Dialog } from '@/app/customer/components/UI/dialog';
+import { ArrowRight } from 'lucide-react';
 // import { apiFetch } from "@/lib/fetch";
 
 type Category = {
@@ -12,10 +13,14 @@ type Category = {
 };
 
 export function CategoryTable() {
-  const [category, setCategory] = useState<Category[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
     null,
   );
+
+  function handleAddItems(categoryId: number) {
+    console.log('yo category maa items add garna bakii ');
+  }
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -25,7 +30,7 @@ export function CategoryTable() {
         });
         if (response.ok) {
           const data: Category[] = await response.json();
-          setCategory(data);
+          setCategories(data);
         }
       } catch {
         console.error('failed to fetch category');
@@ -36,24 +41,30 @@ export function CategoryTable() {
 
   return (
     <>
-      <table className="w-full border-3 border-black">
-        <thead>
-          <tr>
-            <th className=" border-black p-2 border-3">ID</th>
-            <th className=" border-black p-2 border-3">Name</th>
-            <th className=" border-black p-2 border-3">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {category.map((c) => (
-            <tr key={c.id}>
-              <td className="border-3 border-black p-2">{c.id}</td>
-              <td className="border-3 border-black p-2">{c.name}</td>
-              <td className="border-3 border-black p-2">{c.description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {categories.map((category) => (
+          <div
+            key={category.id}
+            className="border  border-gray-300 rounded-lg p-6 flex flex-col gap-3 transition-transform duration-300 ease-in-out hover:scale-105"
+          >
+            <div className="bg-pink-200 rounded-md h-30 flex flex-col  ">
+              Abishek
+            </div>
+            <div className="flex gap-3 flex-col h-30 ">
+              <p className="text-xl font-bold ">{category.name}</p>
+              <p className="text-md text-text-ash">{category.description}</p>
+            </div>
+
+            <button
+              className="flex gap-2 items-center justify-center font-bold bg-blue-600 rounded-md p-2 hover:cursor-pointer hover:bg-blue-800"
+              onClick={() => handleAddItems(category.id)}
+            >
+              <p className="text-white"> Add Items</p>
+              <ArrowRight size={20} className="text-white" />
+            </button>
+          </div>
+        ))}
+      </div>
     </>
   );
 }

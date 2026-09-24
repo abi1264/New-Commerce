@@ -1,5 +1,6 @@
 'use client';
 
+import { Folder } from 'lucide-react';
 import Link from 'next/link';
 
 export default function SideBar() {
@@ -21,9 +22,12 @@ export default function SideBar() {
           Available Categories
         </Link>
 
-        <Link href="/seller/item" className="p-3 rounded hover:bg-blue-600">
-          My Items
-        </Link>
+        <div className="flex gap-2 items-center justify-center border">
+          <Folder size={20} className="text-white" />
+          <Link href="/seller/item" className="p-3 rounded hover:bg-blue-600">
+            My Items
+          </Link>
+        </div>
       </nav>
     </aside>
   );
